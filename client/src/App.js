@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import List from './components/List';
-import './App.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+
+import List from './components/List';
+import './App.css';
 
 const styles = theme => ({
   root: {
-    width: '80%',
+    width: '100%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
-  },
-  table: {
-    minWidth: 800,
-  },
+  }
 });
 class App extends Component {
   constructor(props) {
@@ -27,7 +28,6 @@ class App extends Component {
     fetch(`${BASE_URL}/api/students`)
       .then(res => res.json())
       .then(students => {
-        console.log(students);
         this.setState({ students: students.response })
       });
   }
@@ -35,11 +35,17 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className="App">
+      <div >
         <CssBaseline />
-        <List students={this.state.students} classes={classes} />
+        <AppBar position="static" color="primary">
+          <Toolbar>
+            <Typography variant="title" color="inherit">
+              University System
+          </Typography>
+          </Toolbar>
+        </AppBar>
+        <List students={this.state.students} />
       </div >
-
     );
   }
 }

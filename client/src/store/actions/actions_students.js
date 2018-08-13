@@ -1,23 +1,45 @@
-export const FETCH_STUDENTS = "FETCH_STUDENTS";
-export const START_FETCH_STUDENTS = "START_FETCH_STUDENTS";
+import axios from 'axios';
+
+// Types
+export const FETCH_STUDENTS_STARTED = "FETCH_STUDENTS_STARTED";
+export const FETCH_STUDENTS_SUCCESS = "FETCH_STUDENTS_SUCCESS";
+export const FETCH_STUDENTS_FAILURE = "FETCH_STUDENTS_FAILURE";
+
 
 const BASE_URL = 'http://localhost:4000'
 
-export const fetchStudents = (students) => {
+
+export const fetchStudents = () => {
+    return (dispatch) => {
+        dispatch(fetchStudentsStarted);
+        axios.get(`${BASE_URL}/api/students`)
+            .then(res => {
+                console.log(res.data.response);
+                dispatch(fetchStudentsSuccess(res.data.response));
+            })
+            .catch(err => {
+                dispatch(fetchStudentsFailure(err))
+                console.log(err)
+            })
+
+    };
+}
+
+export const fetchStudentsSuccess = (students) => {
     return {
-        type: FETCH_STUDENTS,
+        type: FETCH_STUDENTS_SUCCESS,
         students
     }
 };
 
-export const startFetchStudents = () => {
-    return (dispatch) => {
-        fetch(`${BASE_URL}/api/students`)
-            .then(res => res.json())
-            .then(students => {
-                console.log(students, "asdfs");
-                dispatch(fetchStudents(students.response));
-            })
-    };
-}
+const fetchStudentsStarted = () => ({
+    type: FETCH_STUDENTS_STARTED
+});
+
+const fetchStudentsFailure = (error) => ({
+    type: FETCH_STUDENTS_FAILURE,
+    payload: {
+        error
+    }
+});
 

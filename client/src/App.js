@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import List from './components/List';
 
-import studentReducer from './components/store/reducers/reducer_student'
+import studentReducer from './store/reducers/reducer_students'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import thunk from 'redux-thunk';
 import './App.css';

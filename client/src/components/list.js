@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { startFetchStudents } from '../store/actions/actions_students'
+import { fetchStudents } from '../store/actions/actions_students'
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -30,13 +30,14 @@ class List extends Component {
     }
 
     componentDidMount() {
-        this.props.startFetchStudents();
+        this.props.fetchStudents();
     }
 
     render() {
         const { classes } = this.props;
         return (
             <Paper className={classes.root}>
+                {this.props.loading}
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
@@ -47,7 +48,7 @@ class List extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.students.map(student => {
+                        {this.props.loading ? "Loading" : this.props.students.map(student => {
                             return (
                                 <TableRow key={student.idStudent}>
                                     <TableCell component="th" scope="row">
@@ -61,17 +62,20 @@ class List extends Component {
                         })}
                     </TableBody>
                 </Table>
-            </Paper>
+            </Paper >
         )
     }
 };
 
 function mapStateToProps(state) {
-    return { students: state.students };
+    return {
+        students: state.students.students,
+        loading: state.students.loading
+    };
 }
 function mapDistpatchToProps(dispatch) {
     return ({
-        startFetchStudents: () => { dispatch(startFetchStudents()) }
+        fetchStudents: () => { dispatch(fetchStudents()) }
     })
 }
 export default connect(mapStateToProps, mapDistpatchToProps)(withStyles(styles)(List));

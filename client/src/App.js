@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import { withStyles } from '@material-ui/core/styles';
+import List from './components/List';
 import './App.css';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    width: '80%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
   },
@@ -41,32 +35,10 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Id</TableCell>
-              <TableCell>First Name</TableCell>
-              <TableCell>Last Name</TableCell>
-              <TableCell>Birthday</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {this.state.students.map(student => {
-              return (
-                <TableRow key={student.id}>
-                  <TableCell component="th" scope="row">
-                    {student.idStudent}
-                  </TableCell>
-                  <TableCell >{student.firstName}</TableCell>
-                  <TableCell >{student.lastName}</TableCell>
-                  <TableCell >{student.birthday}</TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </Paper>
+      <div className="App">
+        <CssBaseline />
+        <List students={this.state.students} classes={classes} />
+      </div >
 
     );
   }

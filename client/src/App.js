@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { withStyles } from '@material-ui/core/styles';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+
 
 import { Switch, Route } from 'react-router-dom'
-
 import Navbar from './components/Navbar';
 import List from './components/List';
+
+import studentReducer from './components/store/reducers/reducer_student'
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { withStyles } from '@material-ui/core/styles';
 import './App.css';
 
 const styles = theme => ({
@@ -41,16 +45,20 @@ class App extends Component {
   }
 
   render() {
+    const store = createStore(combineReducers({
+      student: studentReducer
+    }));
     // const { classes } = this.props;
     return (
-      <div >
-        <CssBaseline />
-        <Navbar />
-
-        <Switch>
-          <Route exact path='/List' component={this.MyList} />
-        </Switch>
-      </div >
+      <Provider store={store}>
+        <div >
+          <CssBaseline />
+          <Navbar />
+          <Switch>
+            <Route exact path='/List' component={this.MyList} />
+          </Switch>
+        </div >
+      </Provider>
     );
   }
 }

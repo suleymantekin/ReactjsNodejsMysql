@@ -5,24 +5,24 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      actors: []
+      students: []
     }
   }
   componentDidMount() {
     const BASE_URL = 'http://localhost:4000'
-    fetch(`${BASE_URL}/api/actors`)
+    fetch(`${BASE_URL}/api/students`)
       .then(res => res.json())
-      .then(actors => {
-        console.log(actors)
-        this.setState({ actors: actors.response })
+      .then(students => {
+        console.log(students);
+        this.setState({ students: students.response })
       });
   }
   render() {
     return (
       <div className="App">
         <h1>Users</h1>
-        {this.state.actors.map(actor =>
-          <div key={actor.actor_id}>{actor.first_name} {actor.last_name} </div>
+        {this.state.students.map(student =>
+          <div key={student.idStudent}>{student.firstName} {student.lastName} </div>
         )}
       </div>
     );

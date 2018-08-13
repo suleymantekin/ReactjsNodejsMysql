@@ -5,7 +5,7 @@ var db = require('../db');
 
 
 router.get('/', function (req, res, next) {
-  db.query('SELECT * FROM actor', function (err, results) {
+  db.query('SELECT * FROM Student', function (err, results) {
     if (err) throw err
     res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
   })

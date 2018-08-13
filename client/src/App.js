@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 
+import { Switch, Route } from 'react-router-dom'
+
+import Navbar from './components/Navbar';
 import List from './components/List';
 import './App.css';
 
@@ -32,19 +32,24 @@ class App extends Component {
       });
   }
 
+  MyList = (props) => {
+    return (
+      <List
+        students={this.state.students}
+      />
+    );
+  }
+
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
     return (
       <div >
         <CssBaseline />
-        <AppBar position="static" color="primary">
-          <Toolbar>
-            <Typography variant="title" color="inherit">
-              University System
-          </Typography>
-          </Toolbar>
-        </AppBar>
-        <List students={this.state.students} />
+        <Navbar />
+
+        <Switch>
+          <Route exact path='/List' component={this.MyList} />
+        </Switch>
       </div >
     );
   }

@@ -4,6 +4,7 @@ var db;
 
 function connectDatabase() {
     if (!db) {
+        settings.multipleStatements = true;
         db = mysql.createConnection(settings);
 
         db.connect(function (err) {

@@ -40,6 +40,35 @@ export const fetchStudent = (id) => {
     };
 }
 
+export const updateStudent = (id, student) => {
+    return (dispatch) => {
+        axios.post(`${BASE_URL}/api/students/update/${id}`, {
+            idStudent: id,
+            ...student
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    };
+}
+
+export const deleteStudent = (id) => {
+    return (dispatch) => {
+        axios.post(`${BASE_URL}/api/students/delete/${id}`)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    };
+}
+
 export const fetchStudentsSuccess = (students) => {
     return {
         type: FETCH_STUDENTS_SUCCESS,

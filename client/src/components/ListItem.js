@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import _ from 'lodash';
 
-import { fetchStudent } from '../store/actions/actions_students'
+import { fetchStudent, updateStudent, deleteStudent } from '../store/actions/actions_students'
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -70,7 +70,11 @@ class ListItem extends Component {
     };
 
     onSaveHandler = () => {
-        alert("a;sdfs")
+        this.props.updateStudent(this.props.match.params.id, this.state)
+    }
+
+    onDeleteHandler = () => {
+        this.props.deleteStudent(this.props.match.params.id);
     }
 
     render() {
@@ -118,7 +122,8 @@ class ListItem extends Component {
                         </Grid>
                         <Grid item xs={1}></Grid>
                     </Grid>
-                    <Button variant="contained" color="secondary" className={classNames(classes.deleteIcon, classes.button)}>
+                    <Button variant="contained" color="secondary" className={classNames(classes.deleteIcon, classes.button)}
+                        onClick={this.onDeleteHandler} >
                         Delete
                         <DeleteIcon />
                     </Button>
@@ -138,10 +143,4 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDistpatchToProps(dispatch) {
-    return ({
-        fetchStudent: () => { dispatch(fetchStudent()) }
-    })
-}
-
-export default connect(mapStateToProps, { fetchStudent })(withStyles(styles)(ListItem));
+export default connect(mapStateToProps, { fetchStudent, updateStudent, deleteStudent })(withStyles(styles)(ListItem));

@@ -15,14 +15,12 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case FETCH_STUDENTS_STARTED:
-            console.log("In cctions")
             return {
                 ...state,
                 loading: true
             };
         case FETCH_STUDENTS_SUCCESS:
             const newStudents = _.mapKeys(action.students, 'idStudent')
-            console.log(newStudents);
             return {
                 ...state,
                 loading: false,
@@ -30,11 +28,12 @@ export default (state = initialState, action) => {
                 students: newStudents
             };
         case FETCH_STUDENT_SUCCESS:
+            console.log(action.student, "asdfasd")
             return {
                 ...state,
                 loading: false,
                 error: null,
-                students: action.students
+                students: { ...state.students, [action.student[0].idStudent]: action.student[0] }
             };
         case FETCH_STUDENTS_FAILURE:
             return {

@@ -34,7 +34,6 @@ class List extends Component {
         this.props.fetchStudents();
     }
     onStudentClick = (id) => {
-        console.log(id);
         this.props.history.push(`/students/${id}`);
     }
 
@@ -58,7 +57,7 @@ class List extends Component {
                 )
             })
         }
-        console.log(render)
+
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table}>

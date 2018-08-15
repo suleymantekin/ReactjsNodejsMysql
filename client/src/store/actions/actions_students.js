@@ -11,12 +11,10 @@ const BASE_URL = 'http://localhost:4000'
 
 
 export const fetchStudents = () => {
-    console.log('In fetch   Students')
     return function (dispatch) {
         dispatch(fetchStudentsStarted());
         axios.get(`${BASE_URL}/api/students`)
             .then(res => {
-                console.log(res.data.response);
                 dispatch(fetchStudentsSuccess(res.data.response));
             })
             .catch(err => {
@@ -27,9 +25,7 @@ export const fetchStudents = () => {
 }
 
 export const fetchStudent = (id) => {
-    console.log('In fetch   Students')
     return (dispatch) => {
-        console.log('In fetch   Students')
         dispatch(fetchStudentsStarted);
         axios.get(`${BASE_URL}/api/students/${id}`)
             .then(res => {

@@ -11,6 +11,7 @@ import studentReducer from './store/reducers/reducer_students'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import thunk from 'redux-thunk';
 import './App.css';
+import AddForm from './components/AddForm';
 
 class App extends Component {
 
@@ -29,6 +30,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/Students' component={List} />
             <Route exact path='/Students/:id' component={ListItem} />
+            <Route exact path='/Students/add' component={AddForm} />
           </Switch>
         </div >
       </Provider>

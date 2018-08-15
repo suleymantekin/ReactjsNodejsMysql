@@ -10,6 +10,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
     root: {
@@ -20,6 +22,14 @@ const styles = theme => ({
     paper: {
         maxWidth: '80%',
     },
+    tableRow: {
+        cursor: 'pointer'
+    },
+    button: {
+        position: 'absolute',
+        bottom: theme.spacing.unit * 2,
+        right: theme.spacing.unit * 2,
+    }
 });
 
 class List extends Component {
@@ -46,13 +56,13 @@ class List extends Component {
             render = _.map(this.props.students, (student) => {
                 const { idStudent, firstName, lastName, birthday } = student;
                 return (
-                    <TableRow key={idStudent} onClick={() => this.onStudentClick(idStudent)}>
+                    <TableRow className={classes.tableRow} hover key={idStudent} onClick={() => this.onStudentClick(idStudent)}>
                         <TableCell component="th" scope="row">
                             {idStudent}
                         </TableCell>
                         <TableCell >{firstName}</TableCell>
                         <TableCell >{lastName}</TableCell>
-                        <TableCell >{birthday}</TableCell>
+                        <TableCell >{birthday.toString().slice(0, 10)}</TableCell>
                     </TableRow>
                 )
             })
@@ -60,6 +70,9 @@ class List extends Component {
 
         return (
             <Paper className={classes.root}>
+                <Button variant="fab" color="primary" aria-label="Add" className={classes.button}>
+                    <AddIcon className={classes.addIcon} />
+                </Button>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>

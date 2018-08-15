@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import _ from 'lodash';
+
 import { fetchStudents } from '../store/actions/actions_students'
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -8,7 +10,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import ListItem from './ListItem';
 
 const styles = theme => ({
     root: {
@@ -32,12 +33,34 @@ class List extends Component {
     componentDidMount() {
         this.props.fetchStudents();
     }
+    onStudentClick = (id) => {
+        console.log(id);
+        this.props.history.push(`/students/${id}`);
+    }
 
     render() {
         const { classes } = this.props;
+        let render = '';
+        if (this.props.loading)
+            render = <div>Loading</div>
+        else {
+            render = _.map(this.props.students, (student) => {
+                const { idStudent, firstName, lastName, birthday } = student;
+                return (
+                    <TableRow key={idStudent} onClick={() => this.onStudentClick(idStudent)}>
+                        <TableCell component="th" scope="row">
+                            {idStudent}
+                        </TableCell>
+                        <TableCell >{firstName}</TableCell>
+                        <TableCell >{lastName}</TableCell>
+                        <TableCell >{birthday}</TableCell>
+                    </TableRow>
+                )
+            })
+        }
+        console.log(render)
         return (
             <Paper className={classes.root}>
-                {this.props.loading}
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
@@ -48,22 +71,12 @@ class List extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.loading ? "Loading" : this.props.students.map(student => {
-                            return (
-                                <TableRow key={student.idStudent}>
-                                    <TableCell component="th" scope="row">
-                                        {student.idStudent}
-                                    </TableCell>
-                                    <TableCell >{student.firstName}</TableCell>
-                                    <TableCell >{student.lastName}</TableCell>
-                                    <TableCell >{student.birthday}</TableCell>
-                                </TableRow>
-                            );
-                        })}
+                        {render}
                     </TableBody>
                 </Table>
             </Paper >
-        )
+        );
+
     }
 };
 

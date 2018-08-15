@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import List from './components/List';
+import ListItem from './components/ListItem';
 
 import studentReducer from './store/reducers/reducer_students'
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -26,7 +27,8 @@ class App extends Component {
           <CssBaseline />
           <Navbar />
           <Switch>
-            <Route exact path='/List' component={List} />
+            <Route exact path='/Students' component={List} />
+            <Route exact path='/Students/:id' component={ListItem} />
           </Switch>
         </div >
       </Provider>

@@ -3,6 +3,7 @@ import axios from 'axios';
 // Types
 export const FETCH_STUDENTS_STARTED = "FETCH_STUDENTS_STARTED";
 export const FETCH_STUDENTS_SUCCESS = "FETCH_STUDENTS_SUCCESS";
+export const FETCH_STUDENT_SUCCESS = "FETCH_STUDENT_SUCCESS";
 export const FETCH_STUDENTS_FAILURE = "FETCH_STUDENTS_FAILURE";
 
 
@@ -10,12 +11,30 @@ const BASE_URL = 'http://localhost:4000'
 
 
 export const fetchStudents = () => {
-    return (dispatch) => {
-        dispatch(fetchStudentsStarted);
+    console.log('In fetch   Students')
+    return function (dispatch) {
+        dispatch(fetchStudentsStarted());
         axios.get(`${BASE_URL}/api/students`)
             .then(res => {
                 console.log(res.data.response);
                 dispatch(fetchStudentsSuccess(res.data.response));
+            })
+            .catch(err => {
+                dispatch(fetchStudentsFailure(err))
+                console.log(err)
+            })
+    };
+}
+
+export const fetchStudent = (id) => {
+    console.log('In fetch   Students')
+    return (dispatch) => {
+        console.log('In fetch   Students')
+        dispatch(fetchStudentsStarted);
+        axios.get(`${BASE_URL}/api/students/${id}`)
+            .then(res => {
+                console.log(res.data.response);
+                dispatch(fetchStudentSuccess(res.data.response));
             })
             .catch(err => {
                 dispatch(fetchStudentsFailure(err))
@@ -29,6 +48,13 @@ export const fetchStudentsSuccess = (students) => {
     return {
         type: FETCH_STUDENTS_SUCCESS,
         students
+    }
+};
+
+export const fetchStudentSuccess = (student) => {
+    return {
+        type: FETCH_STUDENT_SUCCESS,
+        student
     }
 };
 

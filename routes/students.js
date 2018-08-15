@@ -11,6 +11,14 @@ router.get('/', function (req, res, next) {
   })
 });
 
+router.get('/:id', function (req, res, next) {
+  db.query('SELECT * FROM Student WHERE idStudent = ' + req.params.id, function (err, results) {
+    console.log(err);
+    if (err) throw err
+    res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
+  })
+});
+
 
 
 module.exports = router;

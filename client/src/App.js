@@ -29,8 +29,8 @@ class App extends Component {
           <Navbar />
           <Switch>
             <Route exact path='/Students' component={List} />
-            <Route exact path='/Students/:id' component={ListItem} />
             <Route exact path='/Students/add' component={AddForm} />
+            <Route exact path='/Students/:id' component={ListItem} />
           </Switch>
         </div >
       </Provider>

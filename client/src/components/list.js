@@ -47,6 +47,10 @@ class List extends Component {
         this.props.history.push(`/students/${id}`);
     }
 
+    onAddHandler = () => {
+        this.props.history.push('/students/add');
+    }
+
     render() {
         const { classes } = this.props;
         let render = '';
@@ -70,9 +74,6 @@ class List extends Component {
 
         return (
             <Paper className={classes.root}>
-                <Button variant="fab" color="primary" aria-label="Add" className={classes.button}>
-                    <AddIcon className={classes.addIcon} />
-                </Button>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
@@ -86,6 +87,10 @@ class List extends Component {
                         {render}
                     </TableBody>
                 </Table>
+                <Button variant="fab" color="primary" aria-label="Add"
+                    className={classes.button} onClick={this.onAddHandler} >
+                    <AddIcon className={classes.addIcon} />
+                </Button>
             </Paper >
         );
 

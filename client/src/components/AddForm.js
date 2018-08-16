@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
+
+import { addStudent } from '../store/actions/actions_students'
 
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
@@ -43,7 +44,20 @@ class AddForm extends Component {
 
     }
 
+    handleChange = ({ nativeEvent }) => {
+        const { id, value } = nativeEvent.target;
+        console.log(id, value)
+        this.setState({
+            [id]: value
+        })
+    };
+
+    onAddHandler = () => {
+        this.props.addStudent(this.state);
+    }
+
     render() {
+        console.log(this.state)
         const { classes } = this.props;
         const { firstName, lastName, birthday } = this.state;
         return (
@@ -57,6 +71,7 @@ class AddForm extends Component {
                                     id="firstName"
                                     label="First Name"
                                     className={classes.textField}
+                                    onChange={(e) => this.handleChange(e)}
                                     value={firstName}
                                     margin="normal"
                                 />
@@ -65,14 +80,16 @@ class AddForm extends Component {
                                     label="Last Name"
                                     value={lastName}
                                     className={classes.textField}
+                                    onChange={(e) => this.handleChange(e)}
                                     margin="normal"
                                 />
                                 <TextField
-                                    id="date"
+                                    id="birthday"
                                     label="Birthday"
                                     type="date"
                                     value={birthday.toString().slice(0, 10)}
                                     className={classes.textField}
+                                    onChange={(e) => this.handleChange(e)}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -82,7 +99,11 @@ class AddForm extends Component {
                     </Grid>
                     <Grid item xs={1}></Grid>
                 </Grid>
-                <Button variant="contained" color="primary" className={classes.button}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={this.onAddHandler} >
                     <SaveIcon className={classes.saveIcon} /> Save
                 </Button>
             </div>
@@ -90,17 +111,5 @@ class AddForm extends Component {
         )
     }
 }
-function mapStateToProps(state) {
-    console.log(state.students.students, "in mapp")
-    return {
-        students: state.students.students,
-        loading: state.students.loading
-    };
-}
 
-function mapDistpatchToProps(dispatch) {
-    return ({
-    })
-}
-
-export default connect(mapStateToProps, null)(withStyles(styles)(AddForm));
+export default connect(null, { addStudent })(withStyles(styles)(AddForm));

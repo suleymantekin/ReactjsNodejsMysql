@@ -56,6 +56,19 @@ export const updateStudent = (id, student) => {
     };
 }
 
+export const addStudent = (student) => {
+    return (dispatch) => {
+        axios.post(`${BASE_URL}/api/students/add`, student)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    };
+}
+
 export const deleteStudent = (id) => {
     return (dispatch) => {
         axios.post(`${BASE_URL}/api/students/delete/${id}`)

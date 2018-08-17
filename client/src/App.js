@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
+import thunk from 'redux-thunk';
 
 import Navbar from './components/Navbar';
 import List from './components/List';
 import ListItem from './components/ListItem';
-
-import studentReducer from './store/reducers/reducer_students'
-import CssBaseline from '@material-ui/core/CssBaseline';
-import thunk from 'redux-thunk';
-import './App.css';
 import AddForm from './components/AddForm';
+import studentReducer from './store/reducers/reducer_students'
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+import './App.css';
 
 class App extends Component {
 
@@ -21,7 +21,6 @@ class App extends Component {
       students: studentReducer
     }),
       applyMiddleware(thunk));
-    // const { classes } = this.props;
     return (
       <Provider store={store}>
         <div >

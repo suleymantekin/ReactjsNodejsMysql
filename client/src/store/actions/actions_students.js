@@ -6,9 +6,7 @@ export const FETCH_STUDENTS_SUCCESS = "FETCH_STUDENTS_SUCCESS";
 export const FETCH_STUDENT_SUCCESS = "FETCH_STUDENT_SUCCESS";
 export const FETCH_STUDENTS_FAILURE = "FETCH_STUDENTS_FAILURE";
 
-
 const BASE_URL = 'http://localhost:4000'
-
 
 export const fetchStudents = () => {
     return function (dispatch) {
@@ -52,7 +50,6 @@ export const updateStudent = (id, student) => {
             .catch(function (error) {
                 console.log(error);
             });
-
     };
 }
 
@@ -65,7 +62,6 @@ export const addStudent = (student) => {
             .catch(function (error) {
                 console.log(error);
             });
-
     };
 }
 
@@ -78,7 +74,6 @@ export const deleteStudent = (id) => {
             .catch(function (error) {
                 console.log(error);
             });
-
     };
 }
 
